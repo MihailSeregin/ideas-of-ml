@@ -1,1 +1,4 @@
-
+df = spark.read\
+          .format("csv")\
+          .option("sep", "\t")\
+          .load("/datasets/twitter/twitter_sample.tsv")
