@@ -1,0 +1,33 @@
+int: nc = 3;
+
+var 1..nc: wa;   var 1..nc: nt;  var 1..nc: sa;   var 1..nc: q;
+
+int: nc; #the same
+nc = 3; 
+var 0..100: b;
+
+int: N;
+set of int: V = 1..N;
+array[V, V] of int: dist;
+array[V, V] of var 0..1: x;
+array[V] of var 1..N: u;
+
+var int: obj = sum(i,j in V)(x[i,j]*dist[i,j]);
+
+constraint forall(i in V)(x[i,i] = 0);
+
+constraint
+  forall(i in V)(
+    sum(j in V)(x[i,j]) = 1
+    /\
+    sum(j in V)(x[j,i]) = 1
+  );
+  
+constraint 
+  forall(i,j in V where i > 1 /\ j > 1)(
+    u[i] - u[j] + N*x[i,j] <= N-1
+  );
+              
+solve minimize obj;
+  
+output [join(", ", [show(i) ++ "-" ++ show([j | j in V where x[i,j] = 1][1]) | i in V])];
