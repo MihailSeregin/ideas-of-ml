@@ -1,1 +1,54 @@
 sc.parallelize([1, 2, 3, 4]).foreach(lambda x: accum.add(x))
+
+
+people.filter(people.age > 30).join(department, people.deptId == department.id) \
+  .groupBy(department.name, "gender").agg({"salary": "avg", "age": "max"})
+  
+  
+  df.createOrReplaceTempView('RPCMaps')
+
+vertices = spark.sql(
+'''
+SELECT DISTINCT follower
+FROM RPCMaps
+order by follower
+'''
+)
+
+vertices.show(5) #df of vertices is created! 
+
+f.desc?
+
+
+
+edges = spark.sql(
+'''
+SELECT vertex, follower
+FROM RPCMaps
+ORDER BY vertex, follower
+'''
+)
+
+
+
+
+
+DataFrame
+
+distinct()
+drop(*cols)
+filter(condition)
+foreach(f)
+groupBy(*cols)
+join(other[, on, how])
+
+
+
+
+
+
+
+
+
+
+
