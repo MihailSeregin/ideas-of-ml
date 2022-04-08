@@ -1,0 +1,55 @@
+OOP
+
+ x.f(1) is equivalent to calling C.f(x, 1). - в первом случае идет проброс self, во втором вызывается функция
+ 
+ @classmethod используется, когда вам нужно получить методы, не относящиеся к какому-либо конкретному экземпляру, 
+ но тем не менее, каким-то образом привязанные к классу. Самое интересное в них то, что их можно переопределить дочерними классами
+ 
+6 week
+
+class MyTable:
+    id = IntegerField() - аттрибуты могут быть функцией
+    username = CharField()
+    
+instance = MyTable
+instance.id = 10 
+
+tooling 
+
+dict = 'something awful'  # Bad Idea... pylint: disable=redefined-builtin #подавление 
+
+Вы можете получить список pylintпредупреждений, выполнив:
+
+pylint --list-msgs
+Чтобы получить дополнительную информацию о конкретном сообщении, используйте:
+
+pylint --help-msg=C6409
+
+
+ABC
+abc 
+collections.abc import Sequence(len, getitem), Iterator(next,iter),
+
+Мета классы - формализуют интерфейс и заставляют при наследовании определять атрибуты и методы!
+Можно в первом уровне определить некоторые abstractmethod, затем на следующем определить некоторые и т.д.
+
+meta.regitster(cls) - виртуальный ребенок
+
+
+чтобы проверить, является ли класс подклассом!
+    @classmethod
+    def __subclasshook__(cls, C):
+        if cls is MyIterable: --- важно, что вызываем именно на метаклассе, иначе классметод может вызваться идя по MRO.
+            if any("__iter__" in B.__dict__ for B in C.__mro__):
+                return True
+        return NotImplemented 
+
+def foo():
+  pass
+ foo.attr = 5 --- можно присваивать аттрибуты функциям (именно так работает abstractmethod)
+ 
+ 
+ класс D(C): ---- что здесь?
+    @C.x.setter
+    def x(self, val):
+        ...
