@@ -41,7 +41,11 @@ filter(condition)
 foreach(f)
 groupBy(*cols)
 join(other[, on, how])
+filter(df["age"] > 15)
 
+df.createOrReplaceTempView("people")
+
+sqlDF = spark.sql("SELECT * FROM people")
 
 
 
