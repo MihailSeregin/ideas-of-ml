@@ -53,3 +53,7 @@ def foo():
     @C.x.setter
     def x(self, val):
         ...
+        
+        
+        
+ After f = attrgetter('name'), the call f(b) returns b.name.
